@@ -1,0 +1,11 @@
+ul.story-group {
+  min-height: 100px; // the min-height must be set so that empty lists can be draggable
+  padding-left: 0px;
+  padding-right: 0px;
+
+  li.story {
+    list-style: none;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
