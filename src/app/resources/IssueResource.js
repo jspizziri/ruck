@@ -2,11 +2,11 @@
   'use strict';
 
   angular.module('ruckApp')
-    .factory('ProjectIssueResource', ProjectIssueResource);
+    .factory('IssueResource', IssueResource);
 
-  ProjectIssueResource.$inject = ['$resource'];
+  IssueResource.$inject = ['$resource'];
 
-  function ProjectIssueResource($resource) {
+  function IssueResource($resource) {
     var url = 'https://gitlab.com/api/v3/projects/:id/issues';
     return $resource(url, { state: 'opened' }, {
       owned: {

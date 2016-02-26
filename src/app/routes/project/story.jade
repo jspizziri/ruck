@@ -1,0 +1,19 @@
+.row
+  .col-xs-12
+    {{ issue.title }}
+    br
+    i {{ issue.author.name }}
+
+  .col-xs-12
+    span.badge {{ issue.type }}
+
+  .col-xs-12
+    ui-select(ng-model="issue.stage")
+      ui-select-match
+          span.badge(ng-bind="$select.selected")
+      ui-select-choices(repeat="item in (vm.stages | filter: $select.search) track by item")
+          span.badge(ng-bind="item")
+    
+    a.btn.btn-primary(ng-repeat="nextStage in vm.getNextStages(issue.stage)" ng-click="vm.goToStage(issue, nextStage.name)") 
+      {{ nextStage.button }}
+    

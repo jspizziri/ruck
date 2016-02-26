@@ -2,7 +2,7 @@
   "name": "ruckGulp",
   "version": "0.0.0",
   "dependencies": {
-        "lodash": "~4.5.1",
+    "lodash": "~4.5.1",
     "angular-animate": "~1.4.2",
     "angular-cookies": "~1.4.2",
     "angular-touch": "~1.4.2",
@@ -18,7 +18,8 @@
     "moment": "~2.10.6",
     "animate.css": "~3.4.0",
     "angular": "~1.4.2",
-    "Sortable": "angular-ng-sortablejs#~1.4.2"
+    "Sortable": "angular-ng-sortablejs#~1.4.2",
+    "ui-select": "angular-ui-select#~0.14.9"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"

@@ -13,20 +13,29 @@
     .module('ruckApp')
     .controller('ProjectController', ProjectController);
 
-  ProjectController.$inject = ['$stateParams', '_', 'ProjectResource', 'ProjectIssueResource'];
+  ProjectController.$inject = ['$stateParams', '_', 'ProjectResource', 'IssueResource', 'IssueService'];
 
   /** @ngInject */
-  function ProjectController($stateParams, _, ProjectResource, ProjectIssueResource) {
+  function ProjectController($stateParams, _, ProjectResource, IssueResource, IssueService) {
     var vm = this;
     vm.lists = [{ name: 'current', issues: [] }, { name: 'backlog', issues: [] }, { name: 'icebox', issues: [], isDefault: true }];
+    vm.stages = IssueService.getStages();
 
     ProjectResource.get({ id: $stateParams.id }).$promise
       .then(function(result){
         vm.project = result;
       });
 
-    ProjectIssueResource.query({ id: $stateParams.id }).$promise
+    IssueResource.query({ id: $stateParams.id }).$promise
       .then(function(result){
+
+        result.forEach(function(issue){
+          IssueService.preprocessLabels(issue);
+
+          if(!issue.stage)
+            issue.stage = IssueService.processStage().current
+        });
+
         // Filter issues into groups
         var def;
         vm.lists.forEach(function(value, key){
@@ -34,7 +43,7 @@
             def = value;
 
           vm.lists[key].issues = _.remove(result, function(issue){
-            return _.some(issue.labels, function(label){ return label === 'list:' + value.name });
+            return issue.list && issue.list == value.name;
           });
         });
 
@@ -42,5 +51,13 @@
         // to the default list
         def.issues = def.issues.concat(result);
       });
+
+    vm.getNextStages = function(stage){
+      return IssueService.processStage(stage).next;
+    }
+
+    vm.goToStage = function(issue, stage){
+      issue.stage = IssueService.processStage(stage).current
+    }
   }
 })();

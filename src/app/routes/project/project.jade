@@ -6,6 +6,4 @@ ul.list-group(ng-sortable="{ group: 'list' }")
     
     ul.story-group(ng-sortable="{ group: 'stories', draggable: 'li.story' }")
       li.col-xs-12.story(ng-repeat="issue in list.issues")
-        {{ issue.title }}
-        br
-        i {{ issue.author.name }}
+        include ./story.jade
