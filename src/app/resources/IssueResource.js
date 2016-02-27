@@ -7,8 +7,12 @@
   IssueResource.$inject = ['$resource'];
 
   function IssueResource($resource) {
-    var url = 'https://gitlab.com/api/v3/projects/:id/issues';
-    return $resource(url, { state: 'opened' }, {
+    var url = 'https://gitlab.com/api/v3/projects/:id/issues/:issue_id';
+    return $resource(url, {}, {
+      query: {
+        params: { state: 'opened' },
+        isArray: true
+      },
       owned: {
         method: 'GET',
         url: url + '/owned'
@@ -20,6 +24,10 @@
       all: {
         method: 'GET',
         url: url + '/all'
+      },
+      update: {
+        method: 'PUT',
+        params: { id: '@id', issue_id: '@issue_id' }
       }
     });
   }

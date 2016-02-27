@@ -1,0 +1,46 @@
+.col-sm-12
+  table.table
+    tbody
+      tr
+        th.h5(scope="row") Story Type
+        td.text-right 
+          ui-select(ng-model="issue.type" on-select="vm.issueUpdated(issue)" on-remove="vm.issueUpdated(issue)")
+            ui-select-match
+                span(ng-bind="$select.selected")
+            ui-select-choices(repeat="type in (vm.types | filter: $select.search) track by type")
+                span(ng-bind="type")
+      
+      tr
+        th.h5(scope="row") Points
+        td.text-right
+          ui-select(ng-model="issue.points" on-select="vm.issueUpdated(issue)" on-remove="vm.issueUpdated(issue)")
+            ui-select-match
+                span(ng-bind="$select.selected")
+            ui-select-choices(repeat="points in (vm.points | filter: $select.search) track by points")
+                span(ng-bind="points")
+      
+      tr
+        th.h5(scope="row") State
+        td.text-right 
+          a.btn.btn-primary(ng-repeat="nextStage in vm.getNextStages(issue.stage)" ng-click="vm.goToStage(issue, nextStage.name)") 
+            {{ nextStage.button }}
+            
+          ui-select(ng-model="issue.stage" on-select="vm.issueUpdated(issue)" on-remove="vm.issueUpdated(issue)")
+            ui-select-match
+                span(ng-bind="$select.selected")
+            ui-select-choices(repeat="item in (vm.stages | filter: $select.search) track by item")
+                span(ng-bind="item")
+      
+      tr
+        th.h5(scope="row") Requester
+        td.text-right 
+          a(href="{{ issue.author.web_url }}") {{ issue.author.name }}
+        
+      tr
+        th.h5(scope="row") Owners
+        td.text-right 
+          a(href="{{ issue.assignee.web_url }}") {{ issue.assignee.name }}
+      
+.col-sm-12
+  h5 Description
+  {{ issue.description || 'no description.' }}

@@ -1,0 +1,7 @@
+.col-xs-12
+  {{ issue.title }}
+  br
+  i {{ issue.author.name }}
+
+.col-xs-12(ng-if="issue.type || issue.points")
+  span.badge {{ issue.type }} {{ issue.type && issue.points ? '|' : '' }} {{ issue.points }}
