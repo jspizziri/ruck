@@ -61,6 +61,7 @@
       if(issue.points) labels.push('points:'+issue.points);
       if(issue.type) labels.push(issue.type);
       if(issue.list) labels.push('list:'+issue.list);
+      if(!isNaN(issue.priority)) labels.push('priority:'+issue.priority);
 
       // Flatten labels
       if(labels.length) update.labels = labels.join(',');

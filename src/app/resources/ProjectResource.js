@@ -9,7 +9,7 @@
 
   function ProjectResource($resource) {
     var url = 'https://gitlab.com/api/v3/projects';
-    return $resource(url+'/:id', null, {
+    return $resource(url+'/:id', { id: '@id' }, {
       owned: {
         method: 'GET',
         url: url + '/owned'
@@ -21,6 +21,11 @@
       all: {
         method: 'GET',
         url: url + '/all'
+      },
+      team: {
+        method: 'GET',
+        url: url + '/:id/members',
+        isArray: true
       }
     });
   }

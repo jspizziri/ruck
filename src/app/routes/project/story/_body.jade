@@ -39,7 +39,11 @@
       tr
         th.h5(scope="row") Owners
         td.text-right 
-          a(href="{{ issue.assignee.web_url }}") {{ issue.assignee.name }}
+          ui-select(ng-model="issue.assignee" on-select="vm.issueUpdated(issue)" on-remove="vm.issueUpdated(issue)")
+            ui-select-match
+                span(ng-bind="$select.selected.username")
+            ui-select-choices(repeat="user in (vm.users | filter: $select.search) track by user.id")
+                span(ng-bind="user.username")
       
 .col-sm-12
   h5 Description
