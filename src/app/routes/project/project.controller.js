@@ -42,10 +42,9 @@
         });
 
         // Filter issues into groups
-        var def;
         vm.lists.forEach(function(value, key){
           if(value.isDefault)
-            def = value;
+            vm.defaultList = value;
 
           vm.lists[key].issues = _.remove(result, function(issue){
             return issue.list && issue.list == value.name;
@@ -61,9 +60,8 @@
 
         // Assign the remainder of unmatched labels
         // to the default list
-        def.issues = def.issues.concat(result);
-        def.issues.name = def.name; // reassign list name as it was deleted on concat
-        vm.defaultList = def;
+        vm.defaultList.issues = vm.defaultList.issues.concat(result);
+        vm.defaultList.issues.name = vm.defaultList.name; // reassign list name as it was deleted on concat
       });
 
     vm.getNextStages = function(stage){
@@ -74,6 +72,55 @@
       issue.stage = IssueService.processStage(stage).current
       vm.issueUpdated(issue);
     };
+
+    vm.newIssue = function(list){
+      // only allow one new issue at a time
+      var list = _.find(vm.lists, ['name', list]);
+
+      if(!list.new){
+        list.new = {
+          isNew: true,
+          assignee: null,
+          author: $q.resolve(vm.users)[0],
+          description: "",
+          isCollapsed: false,
+          labels: [],
+          list: list.name,
+          milestone: null,
+          points: null,
+          priority: 0,
+          project_id: $stateParams.id,
+          stage: "unstarted",
+          title: '',
+          type: ''
+        };
+      }
+    };
+
+    vm.deleteIssue = function(issue){
+      issue.close = true
+      $scope.$emit('issueUpdated', issue);
+    }
+
+    vm.saveIssue = function(issue, list){
+      var labels = IssueService.processLabels(issue);
+      IssueResource.save({
+        id: issue.project_id,
+        title: issue.title,
+        description: issue.description,
+        assignee_id: issue.assignee ? issue.assignee.id : null,
+        milestone_id: null,
+        labels: labels
+      }).$promise
+        .then(function(result){
+          delete list.new;
+          list.issues.push(result);
+        });
+    }
+
+    vm.cancelIssue = function(list){
+      delete list.new;
+    }
 
     vm.issueUpdated = function(issue){
       $scope.$emit('issueUpdated', issue);
@@ -90,8 +137,8 @@
       issue.priority = newPriority;
 
       $scope.$emit('issueUpdated', issue);
-      vm.reprioritize(newList, newPriority);
-      vm.reprioritize(oldList, oldPriority);
+      vm.reprioritize(newList, newPriority); // reprioritize everything from the current index down
+      vm.reprioritize(oldList, oldPriority); // reprioritize everything from the current index down
     };
 
     vm.updatedSort = function(e){
@@ -102,6 +149,7 @@
       var min = _.min(indicies);
       var max = _.max(indicies);
 
+      // Only reprioritize issues between the old and new index
       vm.reprioritize(e.models, min, max);
     };
 

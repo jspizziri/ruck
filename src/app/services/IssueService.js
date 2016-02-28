@@ -33,14 +33,6 @@
      *
      */
     function getUpdate(issue){
-      // id	integer	yes	The ID of a project
-      // issue_id	integer	yes	The ID of a project's issue
-      // title	string	no	The title of an issue
-      // description	string	no	The description of an issue
-      // assignee_id	integer	no	The ID of a user to assign the issue to
-      // milestone_id	integer	no	The ID of a milestone to assign the issue to
-      // labels	string	no	Comma-separated label names for an issue
-      // state_event	string	no	The state event of an issue. Set close to close the issue and reopen to reopen it
 
       var update = {
         id: issue.project_id,
@@ -51,20 +43,12 @@
       if(issue.description) update.description = issue.description;
       if(issue.assignee) update.assignee_id = issue.assignee.id;
       if(issue.milestone) update.milestone_id = issue.milestone.id;
-      if(issue.stage == 'accepted') update.state_event = 'close';
+      if(issue.stage == 'accepted' || issue.close) update.state_event = 'close';
       if(issue.stage !== 'accepted' && issue.state !== 'opened')  update.state_event = 'reopen';
 
-      // process labels
-      var labels = [];
+      var labels = processLabels(issue);
 
-      if(issue.stage) labels.push('stage:'+issue.stage);
-      if(issue.points) labels.push('points:'+issue.points);
-      if(issue.type) labels.push(issue.type);
-      if(issue.list) labels.push('list:'+issue.list);
-      if(!isNaN(issue.priority)) labels.push('priority:'+issue.priority);
-
-      // Flatten labels
-      if(labels.length) update.labels = labels.join(',');
+      if(labels) update.labels = labels;
 
       return update;
     }
@@ -80,6 +64,22 @@
         return { current: 'unstarted', next: vm.flow.unstarted };
 
       return { current: stage, next: vm.flow[stage] };
+    }
+
+    function processLabels(issue){
+      // process labels
+      var labels = [];
+
+      if(issue.stage) labels.push('stage:'+issue.stage);
+      if(issue.points) labels.push('points:'+issue.points);
+      if(issue.type) labels.push(issue.type);
+      if(issue.list) labels.push('list:'+issue.list);
+      if(!isNaN(issue.priority)) labels.push('priority:'+issue.priority);
+
+      // Flatten labels
+      if(labels.length) return labels.join(',');
+
+      return null;
     }
 
     /**
@@ -155,6 +155,7 @@
     }
 
     return {
+      processLabels: processLabels,
       preprocessLabels: preprocessLabels,
       getStages: getStages,
       processStage: processStage,

@@ -4,7 +4,7 @@
     span(ng-if="issue.isCollapsed")
       {{ issue.title }}
   h5(ng-if="!issue.isCollapsed") Title
-  input.form-control(type="text" ng-if="!issue.isCollapsed" ng-model="issue.title")
+  input.form-control(type="text" ng-if="!issue.isCollapsed" ng-model="issue.title" ng-required="true")
   br
   i(ng-if="issue.assignee") 
     a(href="{{ issue.assignee.web_url }}"){{ issue.assignee.username }}
@@ -14,3 +14,6 @@
     {{ issue.type }} {{ issue.type && issue.points ? '|' : '' }} {{ issue.points }}
   
   span.badge(ng-class="issue.stage") {{ issue.stage }}
+
+  a.btn.btn-default.pull-right(ng-if="issue.isNew" ng-click="vm.saveIssue(issue, list)") Save
+  a.btn.btn-primary.pull-right(ng-if="issue.isNew" ng-click="vm.cancelIssue(list)") Cancel

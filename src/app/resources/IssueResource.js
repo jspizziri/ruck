@@ -8,7 +8,7 @@
 
   function IssueResource($resource) {
     var url = 'https://gitlab.com/api/v3/projects/:id/issues/:issue_id';
-    return $resource(url, {}, {
+    return $resource(url, { id: '@id', issue_id: '@issue_id' }, {
       query: {
         params: { state: 'opened' },
         isArray: true
@@ -26,8 +26,7 @@
         url: url + '/all'
       },
       update: {
-        method: 'PUT',
-        params: { id: '@id', issue_id: '@issue_id' }
+        method: 'PUT'
       }
     });
   }
