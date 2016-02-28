@@ -22,7 +22,7 @@
       tr
         th.h5(scope="row") State
         td.text-right 
-          a.btn.btn-primary(ng-repeat="nextStage in vm.getNextStages(issue.stage)" ng-click="vm.goToStage(issue, nextStage.name)") 
+          a.btn.btn-primary(ng-repeat="nextStage in vm.getNextStages(issue.stage)" ng-click="vm.goToStage(issue, nextStage.name)" ng-class="nextStage.name") 
             {{ nextStage.button }}
             
           ui-select(ng-model="issue.stage" on-select="vm.issueUpdated(issue)" on-remove="vm.issueUpdated(issue)")
@@ -43,4 +43,4 @@
       
 .col-sm-12
   h5 Description
-  {{ issue.description || 'no description.' }}
+  textarea.form-control(ng-model="issue.description" placeholder="no description.")

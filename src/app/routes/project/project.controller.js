@@ -71,12 +71,14 @@
       $scope.$emit('issueUpdated', issue);
     }
 
+    vm.updatedList = function(e){
+      e.model.list = e.models.name;
+      $scope.$emit('issueUpdated', e.model);
+    }
+
     vm.updatedSort = function(e){
-      if(e.model){
-        console.log("updated ******* ");
-        e.model.list = e.models.name;
-        $scope.$emit('issueUpdated', e.model);
-      }
+      console.log("SORTED ******: ")
+      console.log(e);
     }
   }
 })();

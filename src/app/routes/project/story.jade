@@ -1,10 +1,8 @@
 .row.well.well-sm
-  .col-xs-12(ng-click="issue.isCollapsed = !issue.isCollapsed")
-    .row
-      include ./story/_header.jade
-
-  .col-xs-12(uib-collapse="issue.isCollapsed")
-    br
-    .row      
-      include ./story/_body.jade
+  .row
+    include ./story/_header.jade
+    
+  br
+  .row(uib-collapse="issue.isCollapsed")
+    include ./story/_body.jade
 hr

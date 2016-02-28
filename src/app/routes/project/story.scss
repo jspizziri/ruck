@@ -12,5 +12,30 @@ ul.story-group {
       width: 100%;
       margin: 0;
     }
+
+    textarea {
+      max-width: 100%;
+      min-height: 200px;
+    }
   }
+}
+
+.started {
+  background-color: lightblue;
+}
+
+.finished, .feature {
+  background-color: darkblue;
+}
+
+.delivered {
+  background-color: orange;
+}
+
+.accepted {
+  background-color: green;
+}
+
+.rejected, .bug {
+  background-color: darkred;
 }

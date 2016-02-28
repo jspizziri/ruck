@@ -55,15 +55,15 @@ angular
 
   // Register global event listeners
   // Issue Listener
-  .run(function($rootScope, IssueResource, IssueService){
+  .run(function($rootScope, $log,  IssueResource, IssueService){
 
     // Update remote issue
     $rootScope.$on('issueUpdated', function(event, issue){
       var update = IssueService.getUpdate(issue);
-      console.log("Updating issue: "+ JSON.stringify(update));
+      $log.log("Updating issue: "+ JSON.stringify(update));
       IssueResource.update(update).$promise
         .then(function(result){
-          console.log(result);
+          $log.log(result);
         });
     })
   })

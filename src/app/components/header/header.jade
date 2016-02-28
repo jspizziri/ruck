@@ -1,0 +1,20 @@
+#header.navbar.navbar-default(role="navigation")
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed(type="button" ng-click="vm.isCollapsed = !vm.isCollapsed")
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+      a.navbar-brand(ui-sref="main") Ruck
+
+    .collapse.navbar-collapse(uib-collapse="vm.isCollapsed")
+      ul.nav.navbar-nav.main-nav
+        li
+          a(ui-sref="main") Projects
+        
+      ul.nav.navbar-nav.navbar-right
+        li
+          a.btn.btn-default(role='button' ng-if="!vm.isLoggedIn" ng-click='login()') Login
+          a.btn.btn-default(role="button" ng-if="vm.isLoggedIn" ng-click="signout()") Sign Out

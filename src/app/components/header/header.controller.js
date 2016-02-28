@@ -19,11 +19,16 @@
     var vm = this;
     vm.username = '';
     vm.password = '';
+    vm.isLoggedIn = false;
+    
+    if($cookies.get('token'))
+      vm.isLoggedIn = true;
 
     vm.login = function(){
       AuthTokenResource.get({ username: vm.username, password: vm.password }).$promise
         .then(function(result){
           $cookies.put('token', result.token);
+          vm.isLoggedIn = true;
         });
     }
   }

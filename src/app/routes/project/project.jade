@@ -4,6 +4,6 @@ ul.list-group(ng-sortable="{ group: 'list' }")
   li.col-xs-4.list(ng-repeat="list in vm.lists")
     h4 {{ list.name }}
     
-    ul.story-group(ng-sortable="{ group: 'stories', draggable: 'li.story', onSort: vm.updatedSort }")
+    ul.story-group(ng-sortable="{ group: 'stories', draggable: 'li.story', onAdd: vm.updatedList, onUpdate: vm.updatedSort }")
       li.col-xs-12.story(ng-repeat="issue in list.issues")
         include ./story.jade

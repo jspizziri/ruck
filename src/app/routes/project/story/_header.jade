@@ -1,7 +1,16 @@
 .col-xs-12
-  {{ issue.title }}
+  div(ng-click="issue.isCollapsed = !issue.isCollapsed")
+    i.fa.fa-expand.pull-right
+    span(ng-if="issue.isCollapsed")
+      {{ issue.title }}
+  h5(ng-if="!issue.isCollapsed") Title
+  input.form-control(type="text" ng-if="!issue.isCollapsed" ng-model="issue.title")
   br
-  i {{ issue.author.name }}
+  i 
+    a(href="{{ issue.author.web_url }}"){{ issue.author.name }}
 
-.col-xs-12(ng-if="issue.type || issue.points")
-  span.badge {{ issue.type }} {{ issue.type && issue.points ? '|' : '' }} {{ issue.points }}
+.col-xs-12
+  span.badge(ng-if="issue.type || issue.points" ng-class="issue.type") 
+    {{ issue.type }} {{ issue.type && issue.points ? '|' : '' }} {{ issue.points }}
+  
+  span.badge(ng-class="issue.stage") {{ issue.stage }}
