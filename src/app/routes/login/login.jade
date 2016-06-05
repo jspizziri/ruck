@@ -1,4 +1,4 @@
-.col-sm-6.col-sm-offset-3
+form.col-sm-6.col-sm-offset-3(ng-submit="vm.login()")
   .col-sm-12
     label(for="username") Username
     input.form-control(type="text" name="username" ng-model="vm.username" placeholder="username")
@@ -13,6 +13,6 @@
     p.small * Login using your GitLab username & password
     
   .col-sm-12
-    a.btn.btn-primary(ng-click="vm.login()") Login
+    input.btn.btn-primary(type="submit" value="Login")
     br
     br
