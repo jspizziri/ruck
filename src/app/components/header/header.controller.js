@@ -12,29 +12,15 @@
     .module('ruckApp')
     .controller('HeaderController', HeaderController);
 
-  HeaderController.$inject = ['$cookies', 'AuthTokenResource'];
+  HeaderController.$inject = ['$cookies', 'AuthService'];
 
   /** @ngInject */
-  function HeaderController($cookies, AuthTokenResource) {
+  function HeaderController($cookies, AuthService) {
     var vm = this;
-    vm.username = '';
-    vm.password = '';
-    vm.isLoggedIn = false;
-
-    if($cookies.get('token'))
-      vm.isLoggedIn = true;
-
-    vm.login = function(){
-      AuthTokenResource.get({ username: vm.username, password: vm.password }).$promise
-        .then(function(result){
-          $cookies.put('token', result.token);
-          vm.isLoggedIn = true;
-        });
-    };
+    vm.isLoggedIn = AuthService.isLoggedIn();
 
     vm.signout = function(){
-      $cookies.remove('token');
-      vm.isLoggedIn = false;
+      AuthService.signout();
     }
   }
 })();

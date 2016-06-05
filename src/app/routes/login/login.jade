@@ -1,0 +1,14 @@
+.col-sm-6.col-sm-offset-3
+  .col-sm-12
+    label(for="username") Username
+    input.form-control(type="text" name="username" ng-model="vm.username" placeholder="username")
+
+  .col-sm-12
+    label(for="password") Password
+    input.form-control(type="password" name="password" ng-model="vm.password" placeholder="password")
+
+  .col-sm-12
+    br
+    a.btn.btn-primary(ng-click="vm.login()") Login
+    br
+    br
