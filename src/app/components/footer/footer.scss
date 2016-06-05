@@ -1,0 +1,19 @@
+// Bootstrap Sticky Footer
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+$footer-height: 120px;
+body {
+  margin-bottom: $footer-height + 50px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  background-color: #f5f5f5;
+}
+// Bootstrap Sticky Footer
