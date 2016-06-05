@@ -12,8 +12,10 @@
     .collapse.navbar-collapse(uib-collapse="vm.isCollapsed")
       ul.nav.navbar-nav.main-nav
         li
-          a(ui-sref="main") Projects
-        
+          a(ng-if="vm.isLoggedIn" ui-sref="main") Projects
+        li
+          a(ui-sref="about") About
+          
       ul.nav.navbar-nav.navbar-right
         li
           a.btn.btn-default(role='button' ng-if="!vm.isLoggedIn" ng-click='vm.login()') Login

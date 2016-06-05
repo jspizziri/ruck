@@ -1,6 +1,6 @@
 # Ruck App
 
-Ruck is an opinionated Scrum PM tool. It is designed to work entirely and directly off of the API's & functionality provided by GitLab. This keeps the code lightweight, and fully integrated. Ruck provides a management interface on top of the GitLab issue system:
+Ruck is an opinionated Scrum PM tool. It is designed to work entirely and directly off of the API's & functionality provided by GitLab. This keeps the code lightweight and fully integrated. Ruck provides a management interface on top of the GitLab issue system:
 
 * Organize issues by list
 * Prioritize issues in each list
