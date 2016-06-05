@@ -1,0 +1,27 @@
+
+.row(ng-repeat="note in vm.notes | orderBy:'created_at'")
+
+  .col-sm-4.small
+    b {{ note.author.name }}
+    
+  .col-sm-8.small
+    b.pull-right {{ note.created_at | date:'medium' }}
+    
+  .col-sm-12(btf-markdown="note.body")
+  
+  .col-sm-12  
+    hr
+    
+
+.row
+  .col-sm-4.small
+    b {{ vm.me.name }}
+    
+  .col-sm-8.small
+    b.pull-right {{ vm.now | date:'medium' }}
+    
+  .col-sm-12
+    textarea.form-control(ng-model="vm.newNote" placeholder="enter new note")
+  
+  a.btn(ng-if="vm.newNote.length > 0" ng-click="vm.saveNote(vm.newNote)") Save
+  a.btn(ng-if="vm.newNote.length > 0" ng-click="vm.newNote = null") Cancel

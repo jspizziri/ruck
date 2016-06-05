@@ -20,7 +20,7 @@
     vm.username = '';
     vm.password = '';
     vm.isLoggedIn = false;
-    
+
     if($cookies.get('token'))
       vm.isLoggedIn = true;
 
@@ -30,6 +30,11 @@
           $cookies.put('token', result.token);
           vm.isLoggedIn = true;
         });
+    };
+
+    vm.signout = function(){
+      $cookies.remove('token');
+      vm.isLoggedIn = false;
     }
   }
 })();
