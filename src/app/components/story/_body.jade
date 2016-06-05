@@ -57,7 +57,7 @@
       span(ng-if="issue.editDescription" ng-click="vm.saveIssue(issue, list)") save
     
   .col-sm-12.well
-    div(btf-markdown="issue.description")
+    div(btf-markdown="issue.description | uploadUrlFilter:vm.project.web_url")
   
   
   textarea.form-control(ng-model="issue.description" placeholder="no description." ng-show="issue.editDescription")
