@@ -9,7 +9,8 @@ angular.module('ruckApp')
       controllerAs: 'vm',
       scope: {
         issue: '=ngModel',
-        users: '='
+        users: '=',
+        project: '='
       }
     };
   });

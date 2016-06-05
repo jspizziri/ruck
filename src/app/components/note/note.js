@@ -8,7 +8,8 @@ angular.module('ruckApp')
       controller: 'NoteController',
       controllerAs: 'vm',
       scope: {
-        issue: '='
+        issue: '=',
+        project: '='
       }
     };
   });

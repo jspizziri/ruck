@@ -7,7 +7,7 @@ ul.list-group(ng-sortable="{ group: 'list' }")
         i.fa.fa-plus.pull-right
     
     div(ng-if="list.new" ng-init="issue=list.new")
-      story(ng-model="issue" users="vm.users")
+      story(ng-model="issue" project="vm.project" users="vm.users")
     ul.story-group(ng-sortable="{ group: 'stories', draggable: 'li.story', onAdd: vm.updatedList, onUpdate: vm.updatedSort }")
       li.col-xs-12.story(ng-repeat="issue in list.issues")
-        story(ng-model="issue" users="vm.users")
+        story(ng-model="issue" project="vm.project" users="vm.users")

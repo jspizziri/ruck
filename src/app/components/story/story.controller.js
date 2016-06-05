@@ -19,6 +19,7 @@
     var vm = this;
     vm.issue = $scope.issue;
     vm.users = $scope.users;
+    vm.project = $scope.project;
 
     vm.points = IssueService.getPoints();
     vm.stages = IssueService.getStages();

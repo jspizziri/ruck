@@ -12,12 +12,13 @@
     .module('ruckApp')
     .controller('NoteController', NoteController);
 
-  NoteController.$inject = ['$scope', '$timeout', 'NoteResource', 'UserResource'];
+  NoteController.$inject = ['$filter', '$scope', '$timeout', 'NoteResource', 'UserResource'];
 
   /** @ngInject */
-  function NoteController($scope, $timeout, NoteResource, UserResource) {
+  function NoteController($filter, $scope, $timeout, NoteResource, UserResource) {
     var vm = this;
     vm.issue = $scope.issue;
+    vm.project = $scope.project;
     vm.tickInterval = 1000;
 
     vm.notes = NoteResource.query({ project_id: vm.issue.project_id, issue_id: vm.issue.id });
