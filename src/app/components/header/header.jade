@@ -18,5 +18,5 @@
           
       ul.nav.navbar-nav.navbar-right
         li
-          a.btn.btn-default(role='button' ui-sref="login") Login
+          a.btn.btn-default(role='button' ng-if="!vm.isLoggedIn" ui-sref="login") Login
           a.btn.btn-default(role="button" ng-if="vm.isLoggedIn" ng-click="vm.signout()") Sign Out
