@@ -51,4 +51,13 @@
       
 .col-sm-12
   h5 Description
-  textarea.form-control(ng-model="issue.description" placeholder="no description.")
+  .col-sm-12
+    a.pull-right(ng-click="issue.editDescription = !issue.editDescription") 
+      span(ng-if="!issue.editDescription") edit
+      span(ng-if="issue.editDescription") save
+    
+  .col-sm-12.well
+    div(btf-markdown="issue.description")
+  
+  
+  textarea.form-control(ng-model="issue.description" placeholder="no description." ng-show="issue.editDescription")

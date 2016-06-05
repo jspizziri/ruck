@@ -10,6 +10,7 @@
  */
 angular
   .module('ruckApp', [
+    'btford.markdown',
     'ng-sortable',
     'ngAnimate',
     'ngCookies',
