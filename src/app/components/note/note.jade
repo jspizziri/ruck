@@ -2,7 +2,7 @@
 .row(ng-repeat="note in vm.notes | orderBy:'created_at'")
 
   .col-sm-4.small
-    b @{{ note.author.name }}
+    b @{{ note.author.username }}
     
   .col-sm-8.small
     b.pull-right {{ note.created_at | date:'medium' }}
@@ -15,7 +15,7 @@
 
 .row
   .col-sm-4.small
-    b @{{ vm.me.name }}
+    b @{{ vm.me.username }}
     
   .col-sm-8.small
     b.pull-right {{ vm.now | date:'medium' }}

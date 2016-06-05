@@ -19,9 +19,6 @@
   function ProjectController($scope, $stateParams, $q, _, ProjectResource, IssueResource, UserResource, IssueService) {
     var vm = this;
     vm.lists = [{ name: 'current', issues: [] }, { name: 'backlog', issues: [] }, { name: 'icebox', issues: [], isDefault: true }];
-    vm.stages = IssueService.getStages();
-    vm.types = IssueService.getTypes();
-    vm.points = IssueService.getPoints();
     vm.project = ProjectResource.get({ id: $stateParams.id });
     vm.defaultList = null;
 
@@ -63,16 +60,7 @@
         vm.defaultList.issues = vm.defaultList.issues.concat(result);
         vm.defaultList.issues.name = vm.defaultList.name; // reassign list name as it was deleted on concat
       });
-
-    vm.getNextStages = function(stage){
-      return IssueService.processStage(stage).next;
-    };
-
-    vm.goToStage = function(issue, stage){
-      issue.stage = IssueService.processStage(stage).current
-      vm.issueUpdated(issue);
-    };
-
+      
     vm.newIssue = function(list){
       // only allow one new issue at a time
       var list = _.find(vm.lists, ['name', list]);
