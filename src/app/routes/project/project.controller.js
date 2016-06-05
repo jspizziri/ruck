@@ -60,7 +60,7 @@
         vm.defaultList.issues = vm.defaultList.issues.concat(result);
         vm.defaultList.issues.name = vm.defaultList.name; // reassign list name as it was deleted on concat
       });
-      
+
     vm.newIssue = function(list){
       // only allow one new issue at a time
       var list = _.find(vm.lists, ['name', list]);
@@ -83,35 +83,6 @@
           type: ''
         };
       }
-    };
-
-    vm.deleteIssue = function(issue){
-      issue.close = true
-      $scope.$emit('issueUpdated', issue);
-    }
-
-    vm.saveIssue = function(issue, list){
-      var labels = IssueService.processLabels(issue);
-      IssueResource.save({
-        id: issue.project_id,
-        title: issue.title,
-        description: issue.description,
-        assignee_id: issue.assignee ? issue.assignee.id : null,
-        milestone_id: null,
-        labels: labels
-      }).$promise
-        .then(function(result){
-          delete list.new;
-          list.issues.push(result);
-        });
-    }
-
-    vm.cancelIssue = function(list){
-      delete list.new;
-    }
-
-    vm.issueUpdated = function(issue){
-      $scope.$emit('issueUpdated', issue);
     };
 
     vm.updatedList = function(e){

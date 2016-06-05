@@ -54,7 +54,7 @@
   .col-sm-12
     a.pull-right(ng-click="issue.editDescription = !issue.editDescription") 
       span(ng-if="!issue.editDescription") edit
-      span(ng-if="issue.editDescription") save
+      span(ng-if="issue.editDescription" ng-click="vm.saveIssue(issue, list)") save
     
   .col-sm-12.well
     div(btf-markdown="issue.description")

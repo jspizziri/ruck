@@ -1,4 +1,6 @@
 
+hr
+
 .row(ng-repeat="note in vm.notes | orderBy:'created_at'")
 
   .col-sm-4.small
@@ -29,5 +31,6 @@
   .col-sm-12(ng-if="vm.newNote.preview")
     .well(btf-markdown="vm.newNote.body")
   
-  a.btn(ng-if="vm.newNote.body.length > 0" ng-click="vm.saveNote(vm.newNote.body)") Save
-  a.btn(ng-if="vm.newNote.body.length > 0" ng-click="vm.newNote.body = null") Cancel
+  .col-sm-12
+    a.btn.btn-default.pull-right(ng-if="vm.newNote.body.length > 0" ng-click="vm.saveNote(vm.newNote.body)") Save
+    a.btn.btn-primary.pull-right(ng-if="vm.newNote.body.length > 0" ng-click="vm.newNote.body = null") Cancel
