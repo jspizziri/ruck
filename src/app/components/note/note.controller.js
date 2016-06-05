@@ -34,7 +34,7 @@
 
 
     vm.saveNote = function(body){
-      vm.newNote = null;
+      vm.newNote.body = null;
 
       NoteResource.save({
         project_id: vm.issue.project_id,

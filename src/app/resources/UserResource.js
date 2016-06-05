@@ -12,7 +12,8 @@
     return $resource(url + '/users/:id', { id: '@id' }, {
       me: {
         method: 'GET',
-        url: url + '/user'
+        url: url + '/user',
+        cache: true
       }
     });
   }
