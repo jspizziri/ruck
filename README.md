@@ -31,7 +31,13 @@ Edit stories with markdown and preview in realtime
 
 
 ## Getting Started
-##### Run
+
+#### Install project dependencies
+```
+npm install && bower install
+```
+
+#### Build & run the project
 ```
 gulp serve
 ```
