@@ -41,3 +41,29 @@ npm install && bower install
 ```
 gulp serve
 ```
+
+#### Docker
+
+###### Building locally
+```
+docker build -t ruck .
+docker run --name ruck-web -d -p 80:80 -p 443:8443 ruck
+```
+
+###### Deploying image
+
+Update `gulp/conf.js`
+```js
+/**
+ * Docker config
+ */
+exports.docker = {
+  repo: 'ruck/ruck'
+};
+```
+
+Docker login and gulp build
+```
+docker login
+gulp --env=staging docker:build
+```

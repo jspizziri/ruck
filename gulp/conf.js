@@ -29,6 +29,13 @@ exports.wiredep = {
 };
 
 /**
+ * Docker config
+ */
+exports.docker = {
+  repo: 'ruck/ruck'
+};
+
+/**
  *  Common implementation for an error handler of a Gulp plugin
  */
 exports.errorHandler = function(title) {
