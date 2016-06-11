@@ -26,17 +26,12 @@
     $q.all([UserResource.me().$promise, ProjectResource.team({ id: $stateParams.id }).$promise])
       .then(function(result){
         vm.users = _.flatten(result);
-      })
+      });
 
     IssueResource.query({ id: $stateParams.id }).$promise
       .then(function(result){
 
-        result.forEach(function(issue){
-          IssueService.preprocessLabels(issue);
-          issue.isCollapsed = true;
-          if(!issue.stage)
-            issue.stage = IssueService.processStage().current
-        });
+        result = IssueService.preprocessIssues(result);
 
         // Filter issues into groups
         vm.lists.forEach(function(value, key){
@@ -63,7 +58,7 @@
 
     vm.newIssue = function(list){
 
-      if(!list.issues[0].isNew){
+      if(!list.issues.length || !list.issues[0].isNew){
         list.issues.unshift({
           isNew: true,
           assignee: null,
@@ -83,43 +78,17 @@
       }
     };
 
-    vm.updatedList = function(e){
-      var issue = e.model;
-      if(!issue.list) issue.list = vm.defaultList.name;
-      var oldList = _.find(vm.lists, ['name', issue.list]).issues;
-      var newList = e.models;
-      var oldPriority = e.oldIndex;
-      var newPriority = e.newIndex;
-      issue.list = newList.name;
-      issue.priority = newPriority;
+    vm.showRecentlyAccepted = function(){
 
-      IssueService.applyUpdate(issue);
-      vm.reprioritize(newList, newPriority); // reprioritize everything from the current index down
-      vm.reprioritize(oldList, oldPriority); // reprioritize everything from the current index down
-    };
-
-    vm.updatedSort = function(e){
-      e.model.priority = e.newIndex;
-      IssueService.applyUpdate(e.model);
-
-      var indicies = [e.newIndex, e.oldIndex];
-      var min = _.min(indicies);
-      var max = _.max(indicies);
-
-      // Only reprioritize issues between the old and new index
-      vm.reprioritize(e.models, min, max);
-    };
-
-    vm.reprioritize = function(issues, startingIndex, endingIndex){
-
-      if(!endingIndex) endingIndex = issues.length - 1;
-      if(endingIndex)  startingIndex += 1;
-
-      for(var i = startingIndex; i <= endingIndex; i++){
-        var issue = issues[i];
-        issue.priority = i;
-        IssueService.applyUpdate(issue);
+      if(!vm.toggleRecentlyAccepted) {
+        IssueResource.query({ id: $stateParams.id, state: 'closed', labels: 'stage:accepted' }).$promise
+          .then(function(results){
+            vm.toggleRecentlyAccepted = !vm.toggleRecentlyAccepted;
+            vm.recentlyAccepted = { name: 'accepted', issues: IssueService.preprocessIssues(results) };
+          })
+      } else {
+        vm.toggleRecentlyAccepted = !vm.toggleRecentlyAccepted;
       }
-    };
+    }
   }
 })();

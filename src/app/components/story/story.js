@@ -4,7 +4,7 @@ angular.module('ruckApp')
   .directive('story', function () {
     return {
       templateUrl: 'app/components/story/story.html',
-      restrict: 'AE',
+      restrict: 'E',
       controller: 'StoryController',
       controllerAs: 'vm',
       scope: {

@@ -33,6 +33,13 @@
 
     vm.goToStage = function(issue, stage){
       issue.stage = IssueService.processStage(stage).current
+
+      if(issue.stage === "accepted"){
+        issue.isCollapsed = true;
+        var index = _.findIndex(vm.list.issues, { 'iid': issue.iid });
+        vm.list.issues.splice(index, 1);
+      }
+
       vm.issueUpdated(issue);
     };
 

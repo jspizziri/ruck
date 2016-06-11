@@ -97,6 +97,17 @@
       return null;
     }
 
+    function preprocessIssues(issues){
+      issues.forEach(function(issue){
+        preprocessLabels(issue);
+        issue.isCollapsed = true;
+        if(!issue.stage)
+          issue.stage = processStage().current
+      });
+
+      return issues;
+    }
+
     /**
      * Hash all the colon delimited labels
      *
@@ -173,6 +184,7 @@
       applyUpdate: applyUpdate,
       processLabels: processLabels,
       preprocessLabels: preprocessLabels,
+      preprocessIssues: preprocessIssues,
       getStages: getStages,
       processStage: processStage,
       getTypes: getTypes,
