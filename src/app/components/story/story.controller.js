@@ -19,6 +19,7 @@
     var vm = this;
     vm.issue = $scope.issue;
     vm.users = $scope.users;
+    vm.list = $scope.list;
     vm.project = $scope.project;
 
     vm.points = IssueService.getPoints();
@@ -36,12 +37,15 @@
     };
 
     vm.deleteIssue = function(issue){
-      issue.close = true
-      $scope.$emit('issueUpdated', issue);
+      issue = null;
+      // issue.close = true
+      // $scope.$emit('issueUpdated', issue);
     }
 
-    vm.saveIssue = function(issue, list){
+    vm.saveIssue = function(issue){
       var labels = IssueService.processLabels(issue);
+      issue.isSaving = true;
+
       IssueResource.save({
         id: issue.project_id,
         title: issue.title,
@@ -51,13 +55,15 @@
         labels: labels
       }).$promise
         .then(function(result){
-          delete list.new;
-          list.issues.push(result);
+          vm.cancelIssue();
+          vm.list.issues.unshift(result);
         });
     }
 
-    vm.cancelIssue = function(list){
-      delete list.new;
+    vm.cancelIssue = function(){
+      if(vm.list.issues[0].isNew){
+        vm.list.issues.shift();
+      }
     }
 
     vm.issueUpdated = function(issue){

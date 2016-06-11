@@ -3,11 +3,11 @@ h1 {{ vm.project.name }}
 ul.list-group(ng-sortable="{ group: 'list' }")
   li.col-xs-4.list(ng-repeat="list in vm.lists")
     h4 {{ list.name }}
-      a(ng-click="vm.newIssue(list.name)")
+      a(ng-click="vm.newIssue(list)")
         i.fa.fa-plus.pull-right
     
     div(ng-if="list.new" ng-init="issue=list.new")
       story(ng-model="issue" project="vm.project" users="vm.users")
     ul.story-group(ng-sortable="{ group: 'stories', draggable: 'li.story', onAdd: vm.updatedList, onUpdate: vm.updatedSort }")
       li.col-xs-12.story(ng-repeat="issue in list.issues")
-        story(ng-model="issue" project="vm.project" users="vm.users")
+        story(ng-model="issue" list="list" project="vm.project" users="vm.users")

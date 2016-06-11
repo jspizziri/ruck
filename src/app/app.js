@@ -10,6 +10,7 @@
  */
 angular
   .module('ruckApp', [
+    'angularSpinner',
     'btford.markdown',
     'ng-sortable',
     'ngAnimate',

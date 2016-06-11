@@ -15,5 +15,5 @@
   
   span.badge(ng-class="issue.stage") {{ issue.stage }}
 
-  a.btn.btn-default.pull-right(ng-if="issue.isNew" ng-click="vm.saveIssue(issue, list)") Save
-  a.btn.btn-primary.pull-right(ng-if="issue.isNew" ng-click="vm.cancelIssue(list)") Cancel
+  a.btn.btn-default.pull-right(ng-if="issue.isNew && !issue.isSaving" ng-click="vm.saveIssue(issue)") Save
+  a.btn.btn-primary.pull-right(ng-if="issue.isNew && !issue.isSaving" ng-click="vm.cancelIssue()") Cancel

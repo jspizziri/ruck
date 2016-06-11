@@ -10,6 +10,7 @@ angular.module('ruckApp')
       scope: {
         issue: '=ngModel',
         users: '=',
+        list: '=',
         project: '='
       }
     };

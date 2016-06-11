@@ -62,11 +62,9 @@
       });
 
     vm.newIssue = function(list){
-      // only allow one new issue at a time
-      var list = _.find(vm.lists, ['name', list]);
 
-      if(!list.new){
-        list.new = {
+      if(!list.issues[0].isNew){
+        list.issues.unshift({
           isNew: true,
           assignee: null,
           author: $q.resolve(vm.users)[0],
@@ -81,7 +79,7 @@
           stage: "unstarted",
           title: '',
           type: ''
-        };
+        });
       }
     };
 
