@@ -53,19 +53,4 @@ angular
         }
       }
     };
-  })
-
-  // Register global event listeners
-  // Issue Listener
-  .run(function($rootScope, $log,  IssueResource, IssueService){
-
-    // Update remote issue
-    $rootScope.$on('issueUpdated', function(event, issue){
-      var update = IssueService.getUpdate(issue);
-      $log.log("Updating issue: "+ JSON.stringify(update));
-      IssueResource.update(update).$promise
-        .then(function(result){
-          $log.log(result);
-        });
-    })
-  })
+  });

@@ -4,9 +4,9 @@
   angular.module('ruckApp')
     .service('IssueService', IssueService);
 
-  IssueService.$inject = ['_'];
+  IssueService.$inject = ['$log', '_', 'IssueResource'];
 
-  function IssueService(_) {
+  function IssueService($log, _, IssueResource) {
     var vm = this;
 
     vm.stages = {
@@ -28,6 +28,21 @@
 
     vm.points = [1, 2, 3];
     vm.types = ['feature', 'chore', 'bug'];
+
+    function applyUpdate(issue, addSpinner){
+
+      var update = getUpdate(issue);
+
+      $log.log("Updating issue: "+ JSON.stringify(update));
+
+      if(addSpinner === true) issue.isUpdating = true;
+      return IssueResource.update(update).$promise
+        .then(function(result){
+          $log.log(result);
+          issue.isUpdating = false;
+          return result;
+        });
+    }
 
     /**
      *
@@ -155,6 +170,7 @@
     }
 
     return {
+      applyUpdate: applyUpdate,
       processLabels: processLabels,
       preprocessLabels: preprocessLabels,
       getStages: getStages,

@@ -12,10 +12,10 @@
     .module('ruckApp')
     .controller('StoryController', StoryController);
 
-  StoryController.$inject = ['$scope', 'IssueResource', 'IssueService'];
+  StoryController.$inject = ['$scope', '_', 'IssueResource', 'IssueService'];
 
   /** @ngInject */
-  function StoryController($scope, IssueResource, IssueService) {
+  function StoryController($scope, _, IssueResource, IssueService) {
     var vm = this;
     vm.issue = $scope.issue;
     vm.users = $scope.users;
@@ -37,15 +37,20 @@
     };
 
     vm.deleteIssue = function(issue){
-      issue = null;
-      // issue.close = true
-      // $scope.$emit('issueUpdated', issue);
+      var index = _.findIndex(vm.list.issues, { 'iid': issue.iid });
+
+      issue.close = true
+
+      IssueService.applyUpdate(issue, true)
+        .then(function(result){
+          vm.list.issues.splice(index, 1);
+        });
     }
 
     vm.saveIssue = function(issue){
       var labels = IssueService.processLabels(issue);
-      issue.isSaving = true;
 
+      issue.isUpdating = true;
       IssueResource.save({
         id: issue.project_id,
         title: issue.title,
@@ -67,7 +72,7 @@
     }
 
     vm.issueUpdated = function(issue){
-      $scope.$emit('issueUpdated', issue);
+      IssueService.applyUpdate(issue);
     };
   }
 })();

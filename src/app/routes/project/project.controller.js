@@ -93,14 +93,14 @@
       issue.list = newList.name;
       issue.priority = newPriority;
 
-      $scope.$emit('issueUpdated', issue);
+      IssueService.applyUpdate(issue);
       vm.reprioritize(newList, newPriority); // reprioritize everything from the current index down
       vm.reprioritize(oldList, oldPriority); // reprioritize everything from the current index down
     };
 
     vm.updatedSort = function(e){
       e.model.priority = e.newIndex;
-      $scope.$emit('issueUpdated', e.model);
+      IssueService.applyUpdate(e.model);
 
       var indicies = [e.newIndex, e.oldIndex];
       var min = _.min(indicies);
@@ -118,7 +118,7 @@
       for(var i = startingIndex; i <= endingIndex; i++){
         var issue = issues[i];
         issue.priority = i;
-        $scope.$emit('issueUpdated', issue);
+        IssueService.applyUpdate(issue);
       }
     };
   }
