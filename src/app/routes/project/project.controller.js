@@ -56,28 +56,6 @@
         vm.defaultList.issues.name = vm.defaultList.name; // reassign list name as it was deleted on concat
       });
 
-    vm.newIssue = function(list){
-
-      if(!list.issues.length || !list.issues[0].isNew){
-        list.issues.unshift({
-          isNew: true,
-          assignee: null,
-          author: $q.resolve(vm.users)[0],
-          description: "",
-          isCollapsed: false,
-          labels: [],
-          list: list.name,
-          milestone: null,
-          points: null,
-          priority: 0,
-          project_id: $stateParams.id,
-          stage: "unstarted",
-          title: '',
-          type: ''
-        });
-      }
-    };
-
     vm.showRecentlyAccepted = function(){
 
       if(!vm.toggleRecentlyAccepted) {

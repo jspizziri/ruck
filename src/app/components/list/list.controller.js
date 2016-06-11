@@ -12,10 +12,10 @@
     .module('ruckApp')
     .controller('ListController', ListController);
 
-  ListController.$inject = ['$scope', 'IssueService'];
+  ListController.$inject = ['$scope', '$stateParams', '$q', 'IssueService'];
 
   /** @ngInject */
-  function ListController($scope, IssueService) {
+  function ListController($scope,$stateParams, $q, IssueService) {
     var vm = this;
 
     vm.list = $scope.list;
@@ -23,6 +23,28 @@
     vm.project = $scope.project;
     vm.users = $scope.users;
     vm.allowNewIssues = $scope.allowNewIssues;
+
+    vm.newIssue = function(list){
+
+      if(!vm.list.issues.length || !vm.list.issues[0].isNew){
+        vm.list.issues.unshift({
+          isNew: true,
+          assignee: null,
+          author: $q.resolve(vm.users)[0],
+          description: "",
+          isCollapsed: false,
+          labels: [],
+          list: vm.list.name,
+          milestone: null,
+          points: null,
+          priority: 0,
+          project_id: $stateParams.id,
+          stage: "unstarted",
+          title: '',
+          type: ''
+        });
+      }
+    };
 
     vm.updatedList = function(e){
       var issue = e.model;

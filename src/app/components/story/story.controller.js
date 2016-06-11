@@ -79,7 +79,8 @@
     }
 
     vm.issueUpdated = function(issue){
-      IssueService.applyUpdate(issue);
+      // New issues can't be updated remotely until saved
+      if(!issue.isNew) IssueService.applyUpdate(issue);
     };
   }
 })();
