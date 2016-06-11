@@ -25,7 +25,8 @@
       team: {
         method: 'GET',
         url: url + '/:id/members',
-        isArray: true
+        isArray: true,
+        cached: true
       }
     });
   }

@@ -12,20 +12,26 @@
     .module('ruckApp')
     .controller('StoryController', StoryController);
 
-  StoryController.$inject = ['$scope', '_', 'IssueResource', 'IssueService'];
+  StoryController.$inject = ['$scope', '$q', '$stateParams', '_', 'UserResource', 'ProjectResource', 'IssueResource', 'IssueService', 'MilestoneResource'];
 
   /** @ngInject */
-  function StoryController($scope, _, IssueResource, IssueService) {
+  function StoryController($scope, $q, $stateParams, _, UserResource, ProjectResource, IssueResource, IssueService, MilestoneResource) {
     var vm = this;
     vm.issue = $scope.issue;
-    vm.users = $scope.users;
+
+    // Fetch all project users
+    $q.all([UserResource.me().$promise, ProjectResource.team({ id: $stateParams.id }).$promise])
+      .then(function(result){
+        vm.users = _.flatten(result);
+      });
+
     vm.list = $scope.list;
     vm.project = $scope.project;
 
     vm.points = IssueService.getPoints();
     vm.stages = IssueService.getStages();
     vm.types = IssueService.getTypes();
-
+    vm.milestones = MilestoneResource.query({ project_id: vm.project.id });
 
     vm.getNextStages = function(stage){
       return IssueService.processStage(stage).next;

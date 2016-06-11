@@ -9,7 +9,6 @@ angular.module('ruckApp')
       controllerAs: 'vm',
       scope: {
         issue: '=ngModel',
-        users: '=',
         list: '=',
         project: '='
       }

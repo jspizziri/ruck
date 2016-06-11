@@ -12,16 +12,15 @@
     .module('ruckApp')
     .controller('ListController', ListController);
 
-  ListController.$inject = ['$scope', '$stateParams', '$q', 'IssueService'];
+  ListController.$inject = ['$scope', '$stateParams', 'IssueService', 'UserResource'];
 
   /** @ngInject */
-  function ListController($scope,$stateParams, $q, IssueService) {
+  function ListController($scope,$stateParams, IssueService, UserResource) {
     var vm = this;
 
     vm.list = $scope.list;
     vm.lists = $scope.lists;
     vm.project = $scope.project;
-    vm.users = $scope.users;
     vm.allowNewIssues = $scope.allowNewIssues;
 
     vm.newIssue = function(list){
@@ -30,7 +29,7 @@
         vm.list.issues.unshift({
           isNew: true,
           assignee: null,
-          author: $q.resolve(vm.users)[0],
+          author: UserResource.me(),
           description: "",
           isCollapsed: false,
           labels: [],

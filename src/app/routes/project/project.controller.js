@@ -13,20 +13,14 @@
     .module('ruckApp')
     .controller('ProjectController', ProjectController);
 
-  ProjectController.$inject = ['$scope', '$stateParams', '$q', '_', 'ProjectResource', 'IssueResource', 'UserResource', 'IssueService'];
+  ProjectController.$inject = ['$scope', '$stateParams', '_', 'ProjectResource', 'IssueResource', 'IssueService'];
 
   /** @ngInject */
-  function ProjectController($scope, $stateParams, $q, _, ProjectResource, IssueResource, UserResource, IssueService) {
+  function ProjectController($scope, $stateParams, _, ProjectResource, IssueResource, IssueService) {
     var vm = this;
     vm.lists = [{ name: 'current', issues: [] }, { name: 'backlog', issues: [] }, { name: 'icebox', issues: [], isDefault: true }];
     vm.project = ProjectResource.get({ id: $stateParams.id });
     vm.defaultList = null;
-
-    // Fetch all project users
-    $q.all([UserResource.me().$promise, ProjectResource.team({ id: $stateParams.id }).$promise])
-      .then(function(result){
-        vm.users = _.flatten(result);
-      });
 
     IssueResource.query({ id: $stateParams.id }).$promise
       .then(function(result){
