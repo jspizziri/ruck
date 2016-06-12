@@ -97,12 +97,18 @@
       return null;
     }
 
+    function preprocessIssue(issue){
+      preprocessLabels(issue);
+      issue.isCollapsed = true;
+      if(!issue.stage)
+        issue.stage = processStage().current
+
+      return issue;
+    }
+
     function preprocessIssues(issues){
       issues.forEach(function(issue){
-        preprocessLabels(issue);
-        issue.isCollapsed = true;
-        if(!issue.stage)
-          issue.stage = processStage().current
+        preprocessIssue(issue);
       });
 
       return issues;
@@ -184,6 +190,7 @@
       applyUpdate: applyUpdate,
       processLabels: processLabels,
       preprocessLabels: preprocessLabels,
+      preprocessIssue: preprocessIssue,
       preprocessIssues: preprocessIssues,
       getStages: getStages,
       processStage: processStage,

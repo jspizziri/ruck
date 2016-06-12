@@ -72,6 +72,7 @@
       }).$promise
         .then(function(result){
           vm.cancelIssue();
+          IssueService.preprocessIssue(result);
           vm.list.issues.unshift(result);
         });
     }
