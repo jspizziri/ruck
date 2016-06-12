@@ -69,7 +69,7 @@
     div(btf-markdown="issue.description | uploadUrlFilter:vm.project.web_url")
   
   
-  textarea.form-control(ng-model="issue.description" placeholder="no description." ng-show="issue.editDescription || issue.isNew")
+  mention(ng-model="issue.description" placeholder="no description." ng-show="issue.editDescription || issue.isNew")
   
 .col-sm-12
-  div(note project="vm.project" issue="issue")
+  note(project="vm.project" issue="issue")

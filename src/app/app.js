@@ -12,6 +12,7 @@ angular
   .module('ruckApp', [
     'angularSpinner',
     'btford.markdown',
+    'mentio',
     'ng-sortable',
     'ngAnimate',
     'ngCookies',

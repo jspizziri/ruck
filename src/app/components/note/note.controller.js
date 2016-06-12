@@ -24,7 +24,7 @@
     if(!vm.issue.isNew){
       vm.notes = NoteResource.query({ project_id: vm.issue.project_id, issue_id: vm.issue.id });
     }
-    
+
     vm.me = UserResource.me();
 
     // timer

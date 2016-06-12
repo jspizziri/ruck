@@ -1,0 +1,13 @@
+textarea.form-control(
+  ng-model="model" 
+  placeholder="{{vm.placeholder}}"
+  mentio
+  mentio-items="vm.mentionables"
+  mentio-select="vm.select(item)"
+  mentio-search="vm.search(term)"
+  mentio-macros="macros"
+  mentio-trigger-char="'@'"
+  mentio-template-url="app/components/mention/template.html"
+  mentio-typed-term="typedTerm2"
+  ng-trim="false"
+  rows="6")

@@ -1,0 +1,3 @@
+ul.dropdown-menu.scrollable-menu(style="display:block")
+  li(mentio-menu-item="user" ng-repeat="user in items track by $index")
+    a.text-primary(ng-bind-html="user.username | mentioHighlight:typedTerm:'menu-highlighted' | unsafe")
