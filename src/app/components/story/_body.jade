@@ -66,7 +66,7 @@
       span(ng-if="issue.editDescription" ng-click="vm.issueUpdated(issue)") save
     
   .col-sm-12.well
-    div(btf-markdown="issue.description | uploadUrlFilter:vm.project.web_url")
+    div(markdown-to-html="issue.description | uploadUrlFilter:vm.project.web_url")
   
   
   mention(ng-model="issue.description" placeholder="no description." ng-show="issue.editDescription || issue.isNew")

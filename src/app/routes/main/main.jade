@@ -1,4 +1,7 @@
-ul(ng-sortable)
-  li(ng-repeat="project in vm.projects")
-    a(ui-sref="project({ id: project.id })")
-      | {{ project.name }}
+ul.col-md-4(ng-sortable)
+  li.well(ng-repeat="project in vm.projects")
+
+    a(ui-sref="project({ id: project.id })") {{ project.name }}
+    span.small.text-muted(ng-if="project.description" markdown-to-html="project.description")
+    br
+    a.small(target="_blank" href="{{ project.http_url_to_repo }}") On GitLab
