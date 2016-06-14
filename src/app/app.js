@@ -30,13 +30,15 @@ angular
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
   })
-  .config(function($showdownProvider) {
+  .config(function($showdownProvider, milestoneMarkdown) {
     // Configure Showdown for GFM
     $showdownProvider.setOption('tasklists', true);
     $showdownProvider.setOption('simplifiedAutoLink', true);
     $showdownProvider.setOption('literalMidWordUnderscores', true);
     $showdownProvider.setOption('strikethrough', true);
     $showdownProvider.setOption('tables', true);
+
+    $showdownProvider.loadExtension(milestoneMarkdown);
   })
   .factory('authInterceptor', function($rootScope, $q, $cookies, $injector) {
     var state;

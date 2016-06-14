@@ -9,7 +9,7 @@ hr
   .col-sm-8.small
     b.pull-right {{ note.created_at | date:'medium' }}
     
-  .col-sm-12(markdown-to-html="note.body | uploadUrlFilter:vm.project.web_url")
+  .col-sm-12(markdown="note.body | uploadUrlFilter:vm.project.web_url" project="vm.project")
   
   .col-sm-12  
     hr
