@@ -5,22 +5,57 @@
   angular.module('ruckApp')
     .constant('milestoneMarkdown',
       function milestoneMarkdown($showdown) {
+        var code = /`.*/;
+
         var quoted = {
           type: 'lang',
-          regex: /\%"(.*?)"/g,
-          replace: '<span milestone-link="\'$1\'" project="project"></span>'
+          filter: function(text){
+            var re = /`(.+?)`|```(.+?)```|\%"(.*?)"/g;
+
+            text = text.replace(re, function(match, code1, code2, milestone){
+
+              if(!code.test(match))
+                return '<span milestone-link="\''+milestone+'\'" project="project"></span>';
+
+              return match
+            });
+
+            return text;
+          }
         };
 
         var oneWord = {
           type: 'lang',
-          regex: /\%([^\s]*[^\s0-9][^\s]*)\b/g,
-          replace: '<span milestone-link="\'$1\'" project="project"></span>'
+          filter: function(text){
+            var re = /`(.+?)`|```(.+?)```|\%([^\s]*[^\s0-9][^\s]*)\b/g;
+
+            text = text.replace(re, function(match, code1, code2, milestone){
+
+              if(!code.test(match))
+                return '<span milestone-link="\''+milestone+'\'" project="project"></span>';
+
+              return match
+            });
+
+            return text;
+          }
         };
 
         var id = {
           type: 'lang',
-          regex:  /\%([0-9][0-9]*)\b/g,
-          replace: '<a target="_blank" href="{{ project.web_url }}/milestones/$1">$1</a>'
+          filter: function(text){
+            var re = /`(.+?)`|```(.+?)```|\%([0-9][0-9]*)\b/g;
+
+            text = text.replace(re, function(match, code1, code2, milestone){
+
+              if(!code.test(match))
+                return '<a target="_blank" href="{{ project.web_url }}/milestones/'+milestone+'">'+milestone+'</a>';
+
+              return match
+            });
+
+            return text;
+          }
         };
 
         return [quoted, oneWord, id];

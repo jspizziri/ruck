@@ -5,7 +5,8 @@ angular.module('ruckApp')
     return {
       restrict: 'A',
       controller: function($scope, _,  MilestoneResource) {
-        MilestoneResource.query({ project_id: $scope.project.id }, { cached: true }).$promise
+        // TODO: this should probably be cached
+        MilestoneResource.query({ project_id: $scope.project.id }).$promise
           .then(function(milestones){
             var url = $scope.project.web_url + '/milestones/';
             var milestone = _.find(milestones, { 'title': $scope.model });
