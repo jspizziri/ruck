@@ -30,7 +30,7 @@ angular
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
   })
-  .config(function($showdownProvider, milestoneMarkdown, issueMarkdown, labelMarkdown, mergeRequestMarkdown, diffMarkdown, mentionMarkdown, fileReferenceMarkdown) {
+  .config(function($showdownProvider, milestoneMarkdown, issueMarkdown, labelMarkdown, mergeRequestMarkdown, diffMarkdown, mentionMarkdown, fileReferenceMarkdown, emojioneMarkdown) {
     // Configure Showdown for GFM
     $showdownProvider.setOption('tasklists', true);
     $showdownProvider.setOption('simplifiedAutoLink', true);
@@ -46,6 +46,7 @@ angular
     $showdownProvider.loadExtension(diffMarkdown);
     $showdownProvider.loadExtension(mentionMarkdown);
     $showdownProvider.loadExtension(fileReferenceMarkdown);
+    $showdownProvider.loadExtension(emojioneMarkdown);
   })
   .factory('authInterceptor', function($rootScope, $q, $cookies, $injector) {
     var state;
