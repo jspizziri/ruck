@@ -19,7 +19,7 @@
 
         var id = {
           type: 'lang',
-          regex:  /\%([0-9][0-9]*)/g,
+          regex:  /\%([0-9][0-9]*)\b/g,
           replace: '<a target="_blank" href="{{ project.web_url }}/milestones/$1">$1</a>'
         };
 

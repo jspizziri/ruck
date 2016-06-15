@@ -9,7 +9,7 @@ hr
   .col-sm-8.small
     b.pull-right {{ note.created_at | date:'medium' }}
     
-  .col-sm-12(markdown="note.body | uploadUrlFilter:vm.project.web_url" project="vm.project")
+  .col-sm-12(markdown="note.body" project="vm.project")
   
   .col-sm-12  
     hr
@@ -29,7 +29,7 @@ hr
     mention(ng-model="vm.newNote.body" placeholder="enter new note")
     
   .col-sm-12(ng-if="vm.newNote.preview")
-    .well(markdown-to-html="vm.newNote.body")
+    .well(markdown="vm.newNote.body" project="vm.project")
   
   .col-sm-12
     a.btn.btn-default.pull-right(ng-if="vm.newNote.body.length > 0" ng-click="vm.saveNote(vm.newNote.body)") Save
