@@ -91,6 +91,9 @@
       if(issue.list) labels.push('list:'+issue.list);
       if(!isNaN(issue.priority)) labels.push('priority:'+issue.priority);
 
+      // Apply all non parsed labels
+      labels.push(_.map(issue.labels, function(label){ return label.name || label }));
+
       // Flatten labels
       if(labels.length) return labels.join(',');
 

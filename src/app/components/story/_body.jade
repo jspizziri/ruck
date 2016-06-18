@@ -23,17 +23,19 @@
             ui-select-choices(repeat="points in (vm.points | filter: $select.search) track by points")
                 span(ng-bind="points")
       
-      tr
+      tr.stage
         th.h5(scope="row") State
-        td.text-right 
-          a.btn.btn-primary(ng-repeat="nextStage in vm.getNextStages(issue.stage)" ng-click="vm.goToStage(issue, nextStage.name)" ng-class="nextStage.name") 
-            {{ nextStage.button }}
+        td.text-right
+          .col-xs-6.text-left
+            a.btn.btn-primary(ng-repeat="nextStage in vm.getNextStages(issue.stage)" ng-click="vm.goToStage(issue, nextStage.name)" ng-class="nextStage.name") 
+              {{ nextStage.button }}
             
-          ui-select(ng-model="issue.stage" on-select="vm.issueUpdated(issue)" on-remove="vm.issueUpdated(issue)")
-            ui-select-match
-                span(ng-bind="$select.selected")
-            ui-select-choices(repeat="item in (vm.stages | filter: $select.search) track by item")
-                span(ng-bind="item")
+          .col-xs-6    
+            ui-select(ng-model="issue.stage" on-select="vm.issueUpdated(issue)" on-remove="vm.issueUpdated(issue)")
+              ui-select-match
+                  span(ng-bind="$select.selected")
+              ui-select-choices(repeat="item in (vm.stages | filter: $select.search) track by item")
+                  span(ng-bind="item")
       
       tr
         th.h5(scope="row") Requester
@@ -70,6 +72,23 @@
   
   
   mention(ng-model="issue.description" placeholder="no description." ng-show="issue.editDescription || issue.isNew")
-  
+
+.col-sm-12
+  h5 Tags
+  ui-select(
+    multiple 
+    tagging 
+    tagging-label="" 
+    ng-model="issue.labels" 
+    theme="bootstrap" 
+    ng-disabled="false" 
+    title="Choose a label" 
+    on-select="vm.issueUpdated(issue)"
+    on-remove="vm.issueUpdated(issue)"
+  )
+    ui-select-match(placeholder="Enter labels...") {{ $item.name || $item }}
+    ui-select-choices(repeat="label in vm.labels | filter:$select.search")
+      {{ label.name }}
+
 .col-sm-12
   note(project="vm.project" issue="issue")

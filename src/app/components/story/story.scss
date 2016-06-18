@@ -17,6 +17,24 @@ ul.story-group {
       max-width: 100%;
       min-height: 200px;
     }
+
+    table.table {
+
+      td, th {
+        font-size: 12px;
+        padding: 4px;
+      }
+
+      tr.stage .col-xs-6 {
+        padding: 0;
+      }
+
+      .ui-select-toggle {
+        font-size: 12px;
+        padding: 5px;
+        height: 26px;
+      }
+    }
   }
 }
 
